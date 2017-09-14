@@ -70,5 +70,9 @@ npm start
 Publish your docs to `origin/gh-pages` branch:
 
 ```shell
+# on linux
 npm run deploy
 ```
+
+Or use manual command at: [Deploying a subfolder to GitHub Pages](https://gist.github.com/vunb/9c359b9d9fc1cf626ab1e51b3db175c7)  
+Result: https://vunb.github.io/node-slate
