@@ -74,5 +74,17 @@ Publish your docs to `origin/gh-pages` branch:
 npm run deploy
 ```
 
-Or use manual command at: [Deploying a subfolder to GitHub Pages](https://gist.github.com/vunb/9c359b9d9fc1cf626ab1e51b3db175c7)  
+Or use manual `git` commands:
+
+```bash
+git checkout gh-pages
+git add build
+git commit -m "update api document"
+git subtree push --prefix build origin gh-pages
+
+# Where: `build` is folder which contains our static html pages. We only need to put it to `gh-pages` branch.
+# Note: remove `build` out of .gitignore file in the first init commit to `gh-pages`, but not necessary remove it in `master`.
+```
+
+Reference: [Deploying a subfolder to GitHub Pages](https://gist.github.com/vunb/9c359b9d9fc1cf626ab1e51b3db175c7)  
 Result: https://vunb.github.io/node-slate
