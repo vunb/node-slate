@@ -131,7 +131,7 @@ gulp.task('NO_COMPRESS', function() {
 
 gulp.task('default', ['clean', 'fonts', 'images', 'highlightjs', 'js', 'sass', 'html']);
 
-gulp.task('serve', ['NO_COMPRESS', 'default'], function() {
+gulp.task('serve', ['NO_COMPRESS'], function() {
 
   gulp.watch(['./source/*.html', './source/includes/**/*'], ['html']);
   gulp.watch('./source/javascripts/**/*', ['js']);
