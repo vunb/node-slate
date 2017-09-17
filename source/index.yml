@@ -1,14 +1,13 @@
-title: API Reference
+title: YEU.AI API Reference
 
 language_tabs:
   - bash
-  - ruby
-  - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='#'>Đăng ký tài khoản Developer <u>tại đây</u></a>
+  - <a href='https://nlp.yeu.ai/api/swagger'>Xem demo sử dụng api <u>tại đây</u></a>
+  - <a href='https://github.com/tripit/slate'>Khung tài liệu sử dụng mã mở Slate</a>
 
 includes:
   - main

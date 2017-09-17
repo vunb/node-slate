@@ -1,169 +1,482 @@
-# Introduction
+# Giới thiệu
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+**YEU.AI** là một nền tảng dịch vụ cung cấp các api cho các tác vụ xử lý và hiểu ngôn ngữ tự nhiên tiếng Việt. Cung cấp hai dịch vụ chính của nền tảng nhận thức:
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+* **Chatbot**: Trợ lý ảo hỗ trợ giao tiếp với khách hàng, **tổng hợp thông tin [1]** về khách hàng
+* **NLP Sdk**: Cung cấp các công cụ và thư viện cho developers để có thể tùy biến ứng dụng ở mức `'thấp'` hơn.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Các api / thư viện hỗ trợ phát triển được tích hợp:
 
-# Authentication
+* **API NLP**: Cung cấp api cho các bài toán nền tảng của xử lý ngôn ngữ tự nhiên, như: Part-of-Speech tagging, Word segment, Chunking, ...
+* **API NLU**: Cung cấp các công cụ cho bài toán HIỂU ngôn ngữ tự nhiên, như: Phân lớp ý định người dùng, phân lớp câu hỏi (type & domain), bóc tách các chủ đề & thực thể được đề cập đến trong văn bản và câu hội thoại
+* **API Speech**: Cung cấp công cụ tổng hợp giọng nói (TTS) và nhận dạng giọng nói (ASR).
 
-> To authorize, use this code:
+**Đặc biệt (*)**: Cá nhân là các developers được sử dụng API và dịch vụ miễn phí của nền tảng dịch vụ Yeu.AI.
 
-```ruby
-require 'kittn'
+Phiên bản hiện tại `0.9` đã có thể sử dụng được các api sau đây:
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+* Tách từ (Tokenization)
+* Tách câu (Chunking)
+* Dán nhãn từ loại (POS tagging)
+* Phân lớp câu hỏi, nhãn: `WHAT`, `WHEN`, `WHO`
 
-```python
-import kittn
+Tính năng sắp tới:
 
-api = kittn.authorize('meowmeowmeow')
-```
+* Phân lớp văn bản (Text classsifcation): `Du lịch`, `thể thao`, `kinh doanh`, ...
+* Phân lớp câu hỏi (Question classification), nhãn: `WHERE`, `YESNO`, `HOW`
+* Phân tích cảm xúc (Sentiment analysis)
+* Phân tích phụ thuộc ngữ pháp (Dependency parsing)
+* Phát hiện ý định người dùng (Intent classification)
+* Nhận dạng thực thể có tên (Named entity recognition)
+
+# Xác thực
+
+Phiên bản hiện tại `0.9` không yêu cầu xác thực!
+
+# NLP API
+
+> Cài đặt thư viện:
 
 ```bash
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+# Sử dụng chương trình curl, mặc định đã được cài trên Linux.
+# Nếu chưa tồn tại hãy dùng lệnh sau đây để cài đặt
+
+# Ubuntu:
+sudo apt-get install curl
+
+# CentOS:
+sudo yum install curl
+
+# Windows:
+Tải ở đây -> https://curl.haxx.se/download.html
+
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+// Cài đặt sử dụng npm
+npm install yeuai --save
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Hiện tại yeu.ai đã cung cấp cho developer sử dụng bằng ngôn ngữ javascript/nodejs thông qua gói thư viện npm:  [npmjs.com/package/yeuai](https://npmjs.com/package/yeuai).
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Yeu.ai cũng cung cấp giao diện truy cập api thông qua đặc tả Swagger, hoặc có thể sử dụng `curl` để thử nghiệm trước kết quả, trước khi tích hợp vào mã chương trình của bạn.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+* https://nlp.api.ai/api/swagger
 
-`Authorization: meowmeowmeow`
+`Authorization: None`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+Phiên bản `v0.9` chưa yêu cầu mã xác thực và sẽ được cập nhật trong phiên bản sau.
 </aside>
 
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Tách từ tiếng Việt
 
 ```bash
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl -G "https://nlp.yeu.ai/api/v1/tok" --data-urlencode "text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ."
 ```
 
 ```javascript
-const kittn = require('kittn');
+const yeuai = require('yeuai')
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+// ES6
+yeuai.word_tokenize('Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.')
+  .then((tokens) => {
+    console.log('Result:', tokens)
+  })
+
+// ES7
+await tokens = yeuai.word_tokenize('Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.')
+console.log('Result:', tokens)
 ```
 
-> The above command returns JSON structured like this:
+> Lệnh trên trả về cấu trúc JSON như thế này:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{
+  "response": [
+    "Ngoài",
+    "thương hiệu",
+    ",",
+    "giá cả",
+    ",",
+    "thời điểm",
+    "mua hàng",
+    "cũng",
+    "là",
+    "một",
+    "yếu tố",
+    "để",
+    "có",
+    "được",
+    "sản phẩm",
+    "tốt",
+    "với",
+    "giá",
+    "rẻ",
+    "."
+  ]
+}
 ```
 
-This endpoint retrieves all kittens.
+Api này sẽ nhận input là câu văn hoặc đoạn văn bản cần tách từ.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://nlp.yeu.ai/api/v1/tok?text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter | Default | Mandatory | Description
+--------- | ------- | ------- | -----------
+text | false | yes | Đoạn văn bản cần tách từ
+isToken | true | no | Nếu giá trị được set là `false`, output trả về là 1 đoạn văn bản
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Tham khảo bảng nhãn dán từ loại [tại đây](#pos_tags)
 </aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Gán nhãn từ loại
 
 ```bash
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl -G "https://nlp.yeu.ai/api/v1/tag" --data-urlencode "text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ."
 ```
 
 ```javascript
-const kittn = require('kittn');
+const yeuai = require('yeuai')
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+// ES6
+yeuai.pos_tag('Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.')
+  .then((tokens) => {
+    console.log('Result:', tokens)
+  })
+
+// ES7
+await tokens = yeuai.pos_tag('Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.')
+console.log('Result:', tokens)
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+   "response":[
+      [
+         "Ngoài",
+         "E"
+      ],
+      [
+         "thương hiệu",
+         "N"
+      ],
+      [
+         ",",
+         "CH"
+      ],
+      [
+         "giá cả",
+         "N"
+      ],
+      [
+         ",",
+         "CH"
+      ],
+      [
+         "thời điểm",
+         "N"
+      ],
+      [
+         "mua hàng",
+         "N"
+      ],
+      [
+         "cũng",
+         "R"
+      ],
+      [
+         "là",
+         "V"
+      ],
+      [
+         "một",
+         "M"
+      ],
+      [
+         "yếu tố",
+         "N"
+      ],
+      [
+         "để",
+         "E"
+      ],
+      [
+         "có",
+         "V"
+      ],
+      [
+         "được",
+         "R"
+      ],
+      [
+         "sản phẩm",
+         "N"
+      ],
+      [
+         "tốt",
+         "A"
+      ],
+      [
+         "với",
+         "E"
+      ],
+      [
+         "giá",
+         "N"
+      ],
+      [
+         "rẻ",
+         "A"
+      ],
+      [
+         ".",
+         "CH"
+      ]
+   ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+Api này sẽ nhận input là câu hoặc đoạn văn cần gán nhãn.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://nlp.yeu.ai/api/v1/tag?text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.`
 
-### URL Parameters
+### Query Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+Parameter | Default | Mandatory | Description
+--------- | ------- | ------- | -----------
+text | false | yes | Đoạn văn bản cần gán nhãn
+
+<aside class="success">
+Tham khảo bảng nhãn dán từ loại [tại đây](#pos_tags)
+</aside>
+
+## Chunking
+
+```bash
+curl -G "https://nlp.yeu.ai/api/v1/chunk" --data-urlencode "text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ."
+```
+
+```javascript
+const yeuai = require('yeuai')
+
+// ES6
+yeuai.chunk('Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.')
+  .then((tokens) => {
+    console.log('Result:', tokens)
+  })
+
+// ES7
+await tokens = yeuai.chunk('Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.')
+console.log('Result:', tokens)
+```
+
+> Lệnh trên trả về cấu trúc JSON như thế này:
+
+```json
+{
+   "response":[
+      [
+         "Ngoài",
+         "E",
+         "B-PP"
+      ],
+      [
+         "thương hiệu",
+         "N",
+         "B-NP"
+      ],
+      [
+         ",",
+         "CH",
+         "I-NP"
+      ],
+      [
+         "giá cả",
+         "N",
+         "I-NP"
+      ],
+      [
+         ",",
+         "CH",
+         "I-NP"
+      ],
+      [
+         "thời điểm",
+         "N",
+         "I-NP"
+      ],
+      [
+         "mua hàng",
+         "N",
+         "I-NP"
+      ],
+      [
+         "cũng",
+         "R",
+         "B-VP"
+      ],
+      [
+         "là",
+         "V",
+         "I-VP"
+      ],
+      [
+         "một",
+         "M",
+         "B-NP"
+      ],
+      [
+         "yếu tố",
+         "N",
+         "I-NP"
+      ],
+      [
+         "để",
+         "E",
+         "B-PP"
+      ],
+      [
+         "có",
+         "V",
+         "B-VP"
+      ],
+      [
+         "được",
+         "R",
+         "I-VP"
+      ],
+      [
+         "sản phẩm",
+         "N",
+         "B-NP"
+      ],
+      [
+         "tốt",
+         "A",
+         "I-NP"
+      ],
+      [
+         "với",
+         "E",
+         "B-PP"
+      ],
+      [
+         "giá",
+         "N",
+         "B-NP"
+      ],
+      [
+         "rẻ",
+         "A",
+         "I-NP"
+      ],
+      [
+         ".",
+         "CH",
+         "O"
+      ]
+   ]
+}
+```
+
+Api này sẽ nhận input là câu hoặc đoạn văn cần phân tích.
+
+### HTTP Request
+
+`GET https://nlp.yeu.ai/api/v1/chunk?text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.`
+
+### Query Parameters
+
+Parameter | Default | Mandatory | Description
+--------- | ------- | ------- | -----------
+text | false | yes | Đoạn văn bản cần phân tích
+
+<aside class="success">
+Tham khảo bảng nhãn dán từ loại [tại đây](#pos_tags)
+</aside>
+
+# NLU API
+
+## Phân tích câu hỏi
+
+```bash
+curl -G "https://nlp.yeu.ai/api/v1/qtype" --data-urlencode "text=khi nào chương trình diễn ra?"
+```
+
+```javascript
+const yeuai = require('yeuai')
+
+// ES6
+yeuai.classify_qtype('khi nào chương trình diễn ra?')
+  .then((tokens) => {
+    console.log('Result:', tokens)
+  })
+
+// ES7
+await tokens = yeuai.classify_qtype('khi nào chương trình diễn ra?')
+console.log('Result:', tokens)
+```
+
+> Lệnh trên trả về cấu trúc JSON như thế này:
+
+```json
+{
+   "success":true,
+   "response":{
+      "classes":[
+         {
+            "confidence":"0.948622",
+            "label":"WHEN"
+         }
+      ],
+      "text":"khi nào chương trình diễn ra?"
+   }
+}
+```
+
+Api này sẽ nhận input là câu hỏi cần phân tích.
+
+### HTTP Request
+
+`GET https://nlp.yeu.ai/api/v1/qtype?text=khi nào chương trình diễn ra?`
+
+### Query Parameters
+
+Parameter | Default | Mandatory | Description
+--------- | ------- | ------- | -----------
+text | false | yes | Câu hỏi cần phân tích
+
+<aside class="warning">
+Phiên bản tiếp theo sẽ phân tích câu hỏi với nhiều thông tin hơn và cấu trúc có thể sẽ thay đổi (gợi ý) như này:
+
+```json
+{
+   "success":true,
+   "response":{
+      "qSubtype":[
+         {
+            "confidence":"0.948622",
+            "label":"WHEN"
+         }
+      ],
+      "qType":[
+         {
+            "confidence":"0.971889",
+            "label":"NUM:date"
+         }
+      ],
+      "text":"khi nào chương trình diễn ra?"
+   }
+}
+```
+</aside>

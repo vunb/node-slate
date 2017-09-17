@@ -1,20 +1,18 @@
-# Errors
+# Bảng mã lỗi
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+<aside class="notice">Phần này sẽ mô tả các mã lỗi trả về khi gọi api không đúng cách hoặc truyền sai các giá trị tham số.</aside>
 
-The Kittn API uses the following error codes:
-
+**Yeu.AI API** sử dụng bảng mã lỗi sau đây:
 
 Error Code | Meaning
 ---------- | -------
-400 | Bad Request -- Your request sucks
-401 | Unauthorized -- Your API key is wrong
-403 | Forbidden -- The kitten requested is hidden for administrators only
-404 | Not Found -- The specified kitten could not be found
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method
-406 | Not Acceptable -- You requested a format that isn't json
-410 | Gone -- The kitten requested has been removed from our servers
-418 | I'm a teapot
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarially offline for maintanance. Please try again later.
+400 | Bad Request -- Truyền thiếu tham số hoặc sai kiểu dữ liệu
+401 | Unauthorized -- API accessToken của bạn sai hoặc hết hạn sử dụng
+403 | Forbidden -- Truy nhập vào api, tài nguyên không được phép
+404 | Not Found -- Không tìm thấy tài nguyên yêu cầu
+405 | Method Not Allowed -- Không hỗ trợ phương thức yêu cầu
+406 | Not Acceptable -- Yêu cầu không được chấp nhận
+410 | Gone -- Tài nguyên truy vấn không còn tồn tại
+429 | Too Many Requests -- Bạn gửi quá nhiều truy vấn vượt quá giới hạn cho phép
+500 | Internal Server Error -- Máy chủ có lỗi, hãy thử lại sau 1 khoảng thời gian
+503 | Service Unavailable -- Dịch vụ bạn đang truy cập không có hoặc đang được nâng cấp
