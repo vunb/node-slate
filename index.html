@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>YEU.AI API Reference</title>
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <link href="stylesheets/highlight-monokai.css" rel="stylesheet" type="text/css" media="screen, print" />
     <script src="javascripts/all.js" type="text/javascript"></script>
   </head>
-  <body class="" data-languages="[&#34;bash&#34;,&#34;ruby&#34;,&#34;python&#34;,&#34;javascript&#34;]">
+  <body class="" data-languages="[&#34;bash&#34;,&#34;javascript&#34;]">
     <a href="#" id="nav-button">
       <span> NAV
         <img alt="undefined" class="undefined" src="images/navbar.png"> </span>
@@ -19,8 +19,6 @@
       <img alt="undefined" class="undefined" src="images/logo.png">
       <div class="lang-selector">
         <a href="#" data-language-name="bash">bash</a>
-        <a href="#" data-language-name="ruby">ruby</a>
-        <a href="#" data-language-name="python">python</a>
         <a href="#" data-language-name="javascript">javascript</a>
       </div>
       <div class="search">
@@ -29,840 +27,1192 @@
       <div id="toc"> </div>
       <ul class="toc-footer">
         <li>
-          <a href='#'>Sign Up for a Developer Key</a>
+          <a href='#'>Đăng ký tài khoản Developer
+            <u>tại đây</u>
+          </a>
         </li>
         <li>
-          <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+          <a href='https://nlp.yeu.ai/api/swagger'>Xem demo sử dụng api
+            <u>tại đây</u>
+          </a>
+        </li>
+        <li>
+          <a href='https://github.com/tripit/slate'>Khung tài liệu sử dụng mã mở Slate</a>
         </li>
       </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction">Introduction</h1>
-        <p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-        <p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-        <p>This example API documentation page was created with
-          <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-        <h1 id="authentication">Authentication</h1>
+        <h1 id="gi-i-thi-u">Giới thiệu</h1>
+        <p>
+          <strong>YEU.AI</strong> là một nền tảng dịch vụ cung cấp các api cho các tác vụ xử lý và hiểu ngôn ngữ tự nhiên tiếng Việt. Cung cấp hai dịch vụ chính của nền tảng nhận thức:</p>
+        <ul>
+          <li>
+            <strong>Chatbot</strong>: Trợ lý ảo hỗ trợ giao tiếp với khách hàng,
+            <strong>tổng hợp thông tin [1]</strong> về khách hàng</li>
+          <li>
+            <strong>NLP Sdk</strong>: Cung cấp các công cụ và thư viện cho developers để có thể tùy biến ứng dụng ở mức <code>&#39;thấp&#39;</code> hơn.</li>
+        </ul>
+        <p>Các api / thư viện hỗ trợ phát triển được tích hợp:</p>
+        <ul>
+          <li>
+            <strong>API NLP</strong>: Cung cấp api cho các bài toán nền tảng của xử lý ngôn ngữ tự nhiên, như: Part-of-Speech tagging, Word segment, Chunking, ...</li>
+          <li>
+            <strong>API NLU</strong>: Cung cấp các công cụ cho bài toán HIỂU ngôn ngữ tự nhiên, như: Phân lớp ý định người dùng, phân lớp câu hỏi (type &amp; domain), bóc tách các chủ đề &amp; thực thể được đề cập đến trong văn bản và câu hội thoại</li>
+          <li>
+            <strong>API Speech</strong>: Cung cấp công cụ tổng hợp giọng nói (TTS) và nhận dạng giọng nói (ASR).</li>
+        </ul>
+        <p>
+          <strong>Đặc biệt (*)</strong>: Cá nhân là các developers được sử dụng API và dịch vụ miễn phí của nền tảng dịch vụ Yeu.AI.</p>
+        <p>Phiên bản hiện tại <code>0.9</code> đã có thể sử dụng được các api sau đây:</p>
+        <ul>
+          <li>Tách từ (Tokenization)</li>
+          <li>Tách câu (Chunking)</li>
+          <li>Dán nhãn từ loại (POS tagging)</li>
+          <li>Phân lớp câu hỏi, nhãn: <code>WHAT</code>, <code>WHEN</code>, <code>WHO</code></li>
+        </ul>
+        <p>Tính năng sắp tới:</p>
+        <ul>
+          <li>Phân lớp văn bản (Text classsifcation): <code>Du lịch</code>, <code>thể thao</code>, <code>kinh doanh</code>, ...</li>
+          <li>Phân lớp câu hỏi (Question classification), nhãn: <code>WHERE</code>, <code>YESNO</code>, <code>HOW</code></li>
+          <li>Phân tích cảm xúc (Sentiment analysis)</li>
+          <li>Phân tích phụ thuộc ngữ pháp (Dependency parsing)</li>
+          <li>Phát hiện ý định người dùng (Intent classification)</li>
+          <li>Nhận dạng thực thể có tên (Named entity recognition)</li>
+        </ul>
+        <h1 id="x-c-th-c">Xác thực</h1>
+        <p>Phiên bản hiện tại <code>0.9</code> không yêu cầu xác thực!</p>
+        <h1 id="nlp-api">NLP API</h1>
         <blockquote>
-          <p>To authorize, use this code:</p>
-        </blockquote> <pre class="highlight ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'kittn'</span>
+          <p>Cài đặt thư viện:</p>
+        </blockquote> <pre class="highlight bash"><code><span class="hljs-comment"># Sử dụng chương trình curl, mặc định đã được cài trên Linux.</span>
+<span class="hljs-comment"># Nếu chưa tồn tại hãy dùng lệnh sau đây để cài đặt</span>
 
-api = Kittn::APIClient.authorize!(<span class="hljs-string">'meowmeowmeow'</span>)</code></pre><pre class="highlight python"><code><span class="hljs-keyword">import</span> kittn
+<span class="hljs-comment"># Ubuntu:</span>
+sudo apt-get install curl
 
-api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>)</code></pre><pre class="highlight bash"><code><span class="hljs-comment"># With shell, you can just pass the correct header with each request</span>
-curl <span class="hljs-string">"api_endpoint_here"</span>
-  -H <span class="hljs-string">"Authorization: meowmeowmeow"</span></code></pre><pre class="highlight javascript"><code><span class="hljs-keyword">const</span> kittn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kittn'</span>);
+<span class="hljs-comment"># CentOS:</span>
+sudo yum install curl
 
-<span class="hljs-keyword">let</span> api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>);</code></pre>
-        <blockquote>
-          <p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-        </blockquote>
-        <p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our
-          <a href="http://example.com/developers">developer portal</a>.</p>
-        <p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-        <p><code>Authorization: meowmeowmeow</code></p>
-        <aside class="notice"> You must replace <code>meowmeowmeow</code> with your personal API key. </aside>
-        <h1 id="kittens">Kittens</h1>
-        <h2 id="get-all-kittens">Get All Kittens</h2> <pre class="highlight ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'kittn'</span>
+<span class="hljs-comment"># Windows:</span>
+Tải ở đây -&gt; https://curl.haxx.se/download.html</code></pre><pre class="highlight javascript"><code><span class="hljs-comment">// Cài đặt sử dụng npm</span>
+npm install yeuai --save</code></pre>
+        <p>Hiện tại yeu.ai đã cung cấp cho developer sử dụng bằng ngôn ngữ javascript/nodejs thông qua gói thư viện npm:
+          <a href="https://npmjs.com/package/yeuai">npmjs.com/package/yeuai</a>.</p>
+        <p>Yeu.ai cũng cung cấp giao diện truy cập api thông qua đặc tả Swagger, hoặc có thể sử dụng <code>curl</code> để thử nghiệm trước kết quả, trước khi tích hợp vào mã chương trình của bạn.</p>
+        <ul>
+          <li>
+            <a href="https://nlp.api.ai/api/swagger">https://nlp.api.ai/api/swagger</a>
+          </li>
+        </ul>
+        <p><code>Authorization: None</code></p>
+        <aside class="notice"> Phiên bản <code>v0.9</code> chưa yêu cầu mã xác thực và sẽ được cập nhật trong phiên bản sau. </aside>
+        <h2 id="t-ch-t-ti-ng-vi-t">Tách từ tiếng Việt</h2> <pre class="highlight bash"><code>curl -G <span class="hljs-string">"https://nlp.yeu.ai/api/v1/tok"</span> --data-urlencode <span class="hljs-string">"text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ."</span></code></pre>
+        <pre
+          class="highlight javascript"><code><span class="hljs-keyword">const</span> yeuai = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yeuai'</span>)
 
-api = Kittn::APIClient.authorize!(<span class="hljs-string">'meowmeowmeow'</span>)
-api.kittens.get</code></pre><pre class="highlight python"><code><span class="hljs-keyword">import</span> kittn
+<span class="hljs-comment">// ES6</span>
+yeuai.word_tokenize(<span class="hljs-string">'Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.'</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">tokens</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)
+  })
 
-api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>)
-api.kittens.get()</code></pre><pre class="highlight bash"><code>curl <span class="hljs-string">"http://example.com/api/kittens"</span>
-  -H <span class="hljs-string">"Authorization: meowmeowmeow"</span></code></pre><pre class="highlight javascript"><code><span class="hljs-keyword">const</span> kittn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kittn'</span>);
-
-<span class="hljs-keyword">let</span> api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>);
-<span class="hljs-keyword">let</span> kittens = api.kittens.get();</code></pre>
-        <blockquote>
-          <p>The above command returns JSON structured like this:</p>
-        </blockquote> <pre class="highlight json"><code>[
-  {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Fluffums"</span>,
-    <span class="hljs-attr">"breed"</span>: <span class="hljs-string">"calico"</span>,
-    <span class="hljs-attr">"fluffiness"</span>: <span class="hljs-number">6</span>,
-    <span class="hljs-attr">"cuteness"</span>: <span class="hljs-number">7</span>
-  },
-  {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
-    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Max"</span>,
-    <span class="hljs-attr">"breed"</span>: <span class="hljs-string">"unknown"</span>,
-    <span class="hljs-attr">"fluffiness"</span>: <span class="hljs-number">5</span>,
-    <span class="hljs-attr">"cuteness"</span>: <span class="hljs-number">10</span>
-  }
-]</code></pre>
-        <p>This endpoint retrieves all kittens.</p>
-        <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://example.com/api/kittens</code></p>
-        <h3 id="query-parameters">Query Parameters</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Parameter</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>include_cats</td>
-              <td>false</td>
-              <td>If set to true, the result will also include cats.</td>
-            </tr>
-            <tr>
-              <td>available</td>
-              <td>true</td>
-              <td>If set to false, the result will include kittens that have already been adopted.</td>
-            </tr>
-          </tbody>
-        </table>
-        <aside class="success"> Remember — a happy kitten is an authenticated kitten! </aside>
-        <h2 id="get-a-specific-kitten">Get a Specific Kitten</h2> <pre class="highlight ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'kittn'</span>
-
-api = Kittn::APIClient.authorize!(<span class="hljs-string">'meowmeowmeow'</span>)
-api.kittens.get(<span class="hljs-number">2</span>)</code></pre><pre class="highlight python"><code><span class="hljs-keyword">import</span> kittn
-
-api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>)
-api.kittens.get(<span class="hljs-number">2</span>)</code></pre><pre class="highlight bash"><code>curl <span class="hljs-string">"http://example.com/api/kittens/2"</span>
-  -H <span class="hljs-string">"Authorization: meowmeowmeow"</span></code></pre><pre class="highlight javascript"><code><span class="hljs-keyword">const</span> kittn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'kittn'</span>);
-
-<span class="hljs-keyword">let</span> api = kittn.authorize(<span class="hljs-string">'meowmeowmeow'</span>);
-<span class="hljs-keyword">let</span> max = api.kittens.get(<span class="hljs-number">2</span>);</code></pre>
-        <blockquote>
-          <p>The above command returns JSON structured like this:</p>
-        </blockquote> <pre class="highlight json"><code>{
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Max"</span>,
-  <span class="hljs-attr">"breed"</span>: <span class="hljs-string">"unknown"</span>,
-  <span class="hljs-attr">"fluffiness"</span>: <span class="hljs-number">5</span>,
-  <span class="hljs-attr">"cuteness"</span>: <span class="hljs-number">10</span>
+<span class="hljs-comment">// ES7</span>
+<span class="hljs-keyword">await</span> tokens = yeuai.word_tokenize(<span class="hljs-string">'Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.'</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)</code></pre>
+          <blockquote>
+            <p>Lệnh trên trả về cấu trúc JSON như thế này:</p>
+          </blockquote> <pre class="highlight json"><code>{
+  <span class="hljs-attr">"response"</span>: [
+    <span class="hljs-string">"Ngoài"</span>,
+    <span class="hljs-string">"thương hiệu"</span>,
+    <span class="hljs-string">","</span>,
+    <span class="hljs-string">"giá cả"</span>,
+    <span class="hljs-string">","</span>,
+    <span class="hljs-string">"thời điểm"</span>,
+    <span class="hljs-string">"mua hàng"</span>,
+    <span class="hljs-string">"cũng"</span>,
+    <span class="hljs-string">"là"</span>,
+    <span class="hljs-string">"một"</span>,
+    <span class="hljs-string">"yếu tố"</span>,
+    <span class="hljs-string">"để"</span>,
+    <span class="hljs-string">"có"</span>,
+    <span class="hljs-string">"được"</span>,
+    <span class="hljs-string">"sản phẩm"</span>,
+    <span class="hljs-string">"tốt"</span>,
+    <span class="hljs-string">"với"</span>,
+    <span class="hljs-string">"giá"</span>,
+    <span class="hljs-string">"rẻ"</span>,
+    <span class="hljs-string">"."</span>
+  ]
 }</code></pre>
-        <p>This endpoint retrieves a specific kitten.</p>
-        <aside class="warning">Inside HTML code blocks like this one, you can&#39;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-        <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-        <h3 id="url-parameters">URL Parameters</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Parameter</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>ID</td>
-              <td>The ID of the kitten to retrieve</td>
-            </tr>
-          </tbody>
-        </table>
-        <h1 id="errors">Errors</h1>
-        <aside class="notice">This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>&#39;s
-          frontmatter. Files are included in the order listed.</aside>
-        <p>The Kittn API uses the following error codes:</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Error Code</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>400</td>
-              <td>Bad Request -- Your request sucks</td>
-            </tr>
-            <tr>
-              <td>401</td>
-              <td>Unauthorized -- Your API key is wrong</td>
-            </tr>
-            <tr>
-              <td>403</td>
-              <td>Forbidden -- The kitten requested is hidden for administrators only</td>
-            </tr>
-            <tr>
-              <td>404</td>
-              <td>Not Found -- The specified kitten could not be found</td>
-            </tr>
-            <tr>
-              <td>405</td>
-              <td>Method Not Allowed -- You tried to access a kitten with an invalid method</td>
-            </tr>
-            <tr>
-              <td>406</td>
-              <td>Not Acceptable -- You requested a format that isn&#39;t json</td>
-            </tr>
-            <tr>
-              <td>410</td>
-              <td>Gone -- The kitten requested has been removed from our servers</td>
-            </tr>
-            <tr>
-              <td>418</td>
-              <td>I&#39;m a teapot</td>
-            </tr>
-            <tr>
-              <td>429</td>
-              <td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-            </tr>
-            <tr>
-              <td>500</td>
-              <td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-            </tr>
-            <tr>
-              <td>503</td>
-              <td>Service Unavailable -- We&#39;re temporarially offline for maintanance. Please try again later.</td>
-            </tr>
-          </tbody>
-        </table>
-        <h1 id="ph-l-c">Phụ lục</h1>
-        <h2 id="b-ng-nh-n-d-n-t-lo-i">Bảng nhãn dán từ loại</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Nhãn</th>
-              <th>Loại</th>
-              <th>Viết tắt của</th>
-              <th>Tên</th>
-              <th>Nhãn Universal Dependency</th>
-              <th>Ví dụ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>N</td>
-              <td>1</td>
-              <td>Noun</td>
-              <td>Danh từ</td>
-              <td>NOUN</td>
-              <td>tiếng, nước, thủ đô, nhân dân, đồ đạc, cây cối, chim muông</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Nc</td>
-              <td>1</td>
-              <td>Noun Category</td>
-              <td>Danh từ chỉ loại</td>
-              <td>NOUN</td>
-              <td>con, cái, đứa, bức, chiếc</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Ni</td>
-              <td>1</td>
-              <td></td>
-              <td>Danh từ ký hiệu</td>
-              <td>NOUN</td>
-              <td>A1, A4, 60A, 60B, 20a, 20b, ABC, ABCD</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Np</td>
-              <td>1</td>
-              <td>Proper Noun</td>
-              <td>Danh từ riêng</td>
-              <td>NOUN</td>
-              <td>Nguyễn Du, Việt Nam, Hải Phòng, Trường Đại học Bách khoa Hà Nội, Mộc tinh, Hoả tinh, Phật, Đạo Phật</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Nu</td>
-              <td>1</td>
-              <td>Noun Unit</td>
-              <td>Danh từ đơn vị</td>
-              <td>NOUN</td>
-              <td>mét, cân, giờ, nắm, nhúm, hào, xu, đồng</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>A</td>
-              <td>2</td>
-              <td>Adjective</td>
-              <td>Tính từ</td>
-              <td>ADJ</td>
-              <td>tốt, xấu, đẹp; cao, thấp, rộng</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>V</td>
-              <td>3</td>
-              <td>Verb</td>
-              <td>Động từ</td>
-              <td>VERB</td>
-              <td>ngủ, ngồi, cười; đọc, viết, đá, đặt; thích, yêu, ghét, giống, muốn</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>P</td>
-              <td>4</td>
-              <td>Proper</td>
-              <td>Đại từ</td>
-              <td>PROPN</td>
-              <td>tôi, chúng tôi, hắn, nó, y, đại nhân, đại ca, huynh, đệ</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>E</td>
-              <td>5</td>
-              <td>Adposition (bao gồm prepositions và postpositions)</td>
-              <td>Giới từ</td>
-              <td>ADP</td>
-              <td>trên, dưới, trong, ngoài; của, trừ, ngoài, khỏi, ở</td>
-            </tr>
-            <tr>
-              <td>15</td>
-              <td>I</td>
-              <td>5</td>
-              <td>Interjection</td>
-              <td>Thán từ</td>
-              <td>INTJ</td>
-              <td>ôi, chao, a ha</td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>L</td>
-              <td>5</td>
-              <td>Determiner</td>
-              <td>Định từ</td>
-              <td>DET</td>
-              <td>mỗi, từng, mọi, cái; các, những, mấy</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>M</td>
-              <td>5</td>
-              <td>Numeral</td>
-              <td>Số từ</td>
-              <td>NUM</td>
-              <td>một, mười, mười ba; dăm, vài, mươi; nửa, rưỡi</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>T</td>
-              <td>7</td>
-              <td>particle</td>
-              <td>Trợ từ, tình thái từ (tiểu từ)</td>
-              <td>PART</td>
-              <td>à, a, á, ạ, ấy, chắc, chăng, cho, chứ</td>
-            </tr>
-            <tr>
-              <td>20</td>
-              <td>Z</td>
-              <td>8</td>
-              <td>other</td>
-              <td>Yếu tố cấu tạo từ</td>
-              <td>X</td>
-              <td>bất, vô, phi</td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>R</td>
-              <td>8</td>
-              <td></td>
-              <td>Phó từ (Trạng từ)</td>
-              <td>X</td>
-              <td>đã, sẽ, đang, vừa, mới, từng, xong, rồi; rất, hơi, khí, quá</td>
-            </tr>
-            <tr>
-              <td>19</td>
-              <td>X</td>
-              <td>8</td>
-              <td>other</td>
-              <td>Các từ không phân loại được</td>
-              <td>X</td>
-              <td>ra sao, chừng như, thì ra</td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>C</td>
-              <td>9</td>
-              <td>coordinating conjunction</td>
-              <td>Liên từ (thường là chính phụ)</td>
-              <td>CCONJ</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>Cc</td>
-              <td>9</td>
-              <td>subordinating conjunction</td>
-              <td>Liên từ đẳng lập</td>
-              <td>SCONJ</td>
-              <td>và, hoặc, với, cùng</td>
-            </tr>
-            <tr>
-              <td>21</td>
-              <td>CH</td>
-              <td>10</td>
-              <td></td>
-              <td>Nhãn dành cho các loại dấu (nhiều nhất là dấu câu) và một số ký hiệu khác</td>
-              <td>PUNCT</td>
-              <td>. ! ? , ; :</td>
-            </tr>
-            <tr>
-              <td>17</td>
-              <td>b</td>
-              <td>100</td>
-              <td>borrow</td>
-              <td>Từ tiếng nước ngoài (hay từ vay mượn). Khi gán nhãn ngữ liệu, nhãn từ tiếng nước ngoài thường là nhãn kép. Chẳng hạn nếu từ là chat thì nhãn của nó là Vb, video thì nhãn là Nb. Qua thống kê trong kho ngữ liệu thấy có: Ab Cb Eb Mb Nb Pb Vb.</td>
-              <td>_</td>
-              <td>Internet, email, video, chat</td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>y</td>
-              <td>100</td>
-              <td></td>
-              <td>Từ viết tắt. Khi gán nhãn ngữ liệu, nhãn từ viết tắt thường là nhãn kép. Chẳng hạn nếu từ viết tắt là HIV thì nhãn của nó là Ny vì HIV viết đầy đủ thì là cụm danh từ. Qua thống kê trong kho ngữ liệu thấy có: Ny, Vy, Xy.</td>
-              <td>_</td>
-              <td>OPEC, WTO, HIV, SN</td>
-            </tr>
-          </tbody>
-        </table>
-        <p>Tham khảo:</p>
-        <ul>
-          <li>
-            <a href="http://universaldependencies.org/u/pos/">Universal POS tags, universaldependencies.org</a>
-          </li>
-          <li>
-            <a href="http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn English Treebank POS tags</a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/spreadsheets/d/12bqhU5NS9rxM9kY2pBjRSB6Av_XsoOonHEqiv-lDKZw/edit#gid=458521935">Bảng tổng hợp nhãn dán và thử nghiệm</a>
-          </li>
-        </ul>
-        <h2 id="b-ng-ph-n-lo-i-c-u-h-i">Bảng phân loại câu hỏi</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Class</th>
-              <th>Definition</th>
-              <th>Diễn tả</th>
-              <th>Ví dụ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>ABBREVIATION</td>
-              <td>abbreviation</td>
-              <td>viết tắt</td>
-              <td>ABBR</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>abb</td>
-              <td>abbreviation</td>
-              <td>viết tắt</td>
-              <td>Hà Nội viết tắt là gì</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>exp</td>
-              <td>expression abbreviated</td>
-              <td>diễn tả về cách viết tắt</td>
-              <td>NLP viết tắt của từ gì ? SOA là gì?</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>ENTITY</td>
-              <td>entities</td>
-              <td>các thực thể</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>animal</td>
-              <td>animals</td>
-              <td>động vật</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>body</td>
-              <td>organs of body</td>
-              <td>các cơ quan của cơ thể</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>color</td>
-              <td>colors</td>
-              <td>màu sắc</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>creative</td>
-              <td>inventions, books and other creative pieces</td>
-              <td>sáng chế, sách và các tác phẩm sáng tạo khác</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>currency</td>
-              <td>currency names</td>
-              <td>tên tiền tệ</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>dis.med.</td>
-              <td>diseases and medicine</td>
-              <td>bệnh tật và thuốc men</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>event</td>
-              <td>events</td>
-              <td>sự kiện</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>food</td>
-              <td>food</td>
-              <td>món ăn</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>instrument</td>
-              <td>musical instrument</td>
-              <td>nhạc cụ</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>lang</td>
-              <td>languages</td>
-              <td>ngôn ngữ</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>15</td>
-              <td>letter</td>
-              <td>letters like a-z</td>
-              <td>chữ cái như a-z</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>other</td>
-              <td>other entities</td>
-              <td>các thực thể khác</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>17</td>
-              <td>plant</td>
-              <td>plants</td>
-              <td>cây cối</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>product</td>
-              <td>products</td>
-              <td>các sản phẩm</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>19</td>
-              <td>religion</td>
-              <td>religions</td>
-              <td>tôn giáo</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>20</td>
-              <td>sport</td>
-              <td>sports</td>
-              <td>các môn thể thao</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>21</td>
-              <td>substance</td>
-              <td>elements and substances</td>
-              <td>yếu tố và vật chất</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>22</td>
-              <td>symbol</td>
-              <td>symbols and signs</td>
-              <td>biểu tượng và dấu hiệu</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>23</td>
-              <td>technique</td>
-              <td>techniques and methods</td>
-              <td>kỹ thuật và phương pháp</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>24</td>
-              <td>term</td>
-              <td>equivalent terms</td>
-              <td>các điều khoản tương đương</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>25</td>
-              <td>vehicle</td>
-              <td>vehicles</td>
-              <td>xe cộ, phương tiện đi lại</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>26</td>
-              <td>word</td>
-              <td>words with a special property</td>
-              <td>những từ với một tài sản đặc biệt</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>27</td>
-              <td>DESCRIPTION</td>
-              <td>description and abstract concepts</td>
-              <td>mô tả và các khái niệm trừu tượng</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>28</td>
-              <td>definition</td>
-              <td>definition of sth.</td>
-              <td>định nghĩa của một thứ gì đó (sth.)</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>29</td>
-              <td>description</td>
-              <td>description of sth.</td>
-              <td>mô tả về thứ gì đó (sth.)</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>30</td>
-              <td>manner</td>
-              <td>manner of an action</td>
-              <td>cách hành động, cư xử</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>31</td>
-              <td>reason</td>
-              <td>reasons</td>
-              <td>lý do</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>32</td>
-              <td>HUMAN</td>
-              <td>human beings</td>
-              <td>con người</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>33</td>
-              <td>group</td>
-              <td>a group or organization of persons</td>
-              <td>nhóm hoặc tổ chức người</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>34</td>
-              <td>ind</td>
-              <td>an individual</td>
-              <td>một cá nhân</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>35</td>
-              <td>title</td>
-              <td>title of a person</td>
-              <td>chức danh của một người</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>36</td>
-              <td>description</td>
-              <td>description of a person</td>
-              <td>mô tả về một người</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>37</td>
-              <td>LOCATION</td>
-              <td>locations</td>
-              <td>vị trí</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>38</td>
-              <td>city</td>
-              <td>cities</td>
-              <td>các thành phố</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>39</td>
-              <td>country</td>
-              <td>countries</td>
-              <td>quốc gia</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>40</td>
-              <td>mountain</td>
-              <td>mountains</td>
-              <td>các ngọn núi, đồi</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>41</td>
-              <td>other</td>
-              <td>other locations</td>
-              <td>các địa điểm khác</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>42</td>
-              <td>state</td>
-              <td>states</td>
-              <td>tiểu bang</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>43</td>
-              <td>NUMERIC</td>
-              <td>numeric values</td>
-              <td>giá trị số</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>44</td>
-              <td>code</td>
-              <td>postcodes or other codes</td>
-              <td>mã bưu điện hoặc các mã khác</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>45</td>
-              <td>count</td>
-              <td>number of sth.</td>
-              <td>số lượng sth.</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>46</td>
-              <td>date</td>
-              <td>dates</td>
-              <td>ngày tháng</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>47</td>
-              <td>distance</td>
-              <td>linear measures</td>
-              <td>khoảng cách, các phép đo tuyến tính</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>48</td>
-              <td>money</td>
-              <td>prices</td>
-              <td>giá cả</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>49</td>
-              <td>order</td>
-              <td>ranks</td>
-              <td>xếp hạng</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>50</td>
-              <td>other</td>
-              <td>other numbers</td>
-              <td>số khác</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>51</td>
-              <td>period</td>
-              <td>the lasting time of sth.</td>
-              <td>chu kỳ, thời gian sống của một vật</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>52</td>
-              <td>percent</td>
-              <td>fractions</td>
-              <td>phân số</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>53</td>
-              <td>speed</td>
-              <td>speed</td>
-              <td>tốc độ</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>54</td>
-              <td>temp</td>
-              <td>temperature</td>
-              <td>nhiệt độ</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>55</td>
-              <td>size</td>
-              <td>size, area and volume</td>
-              <td>kích thước, diện tích và khối lượng</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>56</td>
-              <td>weight</td>
-              <td>weight</td>
-              <td>cân nặng</td>
-            </tr>
-          </tbody>
-        </table>
-        <p>Tham khảo:</p>
-        <ul>
-          <li>
-            <a href="http://cogcomp.org/Data/QA/QC/definition.html">Definition of Question Classes, by Xin Li and Dan Roth</a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/spreadsheets/d/12bqhU5NS9rxM9kY2pBjRSB6Av_XsoOonHEqiv-lDKZw/edit#gid=458521935">Bảng tổng hợp nhãn dán và thử nghiệm</a>
-          </li>
-        </ul>
-        <!-- References -->
+          <p>Api này sẽ nhận input là câu văn hoặc đoạn văn bản cần tách từ.</p>
+          <h3 id="http-request">HTTP Request</h3>
+          <p><code>GET https://nlp.yeu.ai/api/v1/tok?text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.</code></p>
+          <h3 id="query-parameters">Query Parameters</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Default</th>
+                <th>Mandatory</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>text</td>
+                <td>false</td>
+                <td>yes</td>
+                <td>Đoạn văn bản cần tách từ</td>
+              </tr>
+              <tr>
+                <td>isToken</td>
+                <td>true</td>
+                <td>no</td>
+                <td>Nếu giá trị được set là <code>false</code>, output trả về là 1 đoạn văn bản</td>
+              </tr>
+            </tbody>
+          </table>
+          <aside class="success"> Tham khảo bảng nhãn dán từ loại
+            <a href="#pos_tags">tại đây</a>
+          </aside>
+          <h2 id="g-n-nh-n-t-lo-i">Gán nhãn từ loại</h2> <pre class="highlight bash"><code>curl -G <span class="hljs-string">"https://nlp.yeu.ai/api/v1/tag"</span> --data-urlencode <span class="hljs-string">"text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ."</span></code></pre>
+          <pre
+            class="highlight javascript"><code><span class="hljs-keyword">const</span> yeuai = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yeuai'</span>)
+
+<span class="hljs-comment">// ES6</span>
+yeuai.pos_tag(<span class="hljs-string">'Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.'</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">tokens</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)
+  })
+
+<span class="hljs-comment">// ES7</span>
+<span class="hljs-keyword">await</span> tokens = yeuai.pos_tag(<span class="hljs-string">'Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.'</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)</code></pre>
+            <blockquote>
+              <p>The above command returns JSON structured like this:</p>
+            </blockquote> <pre class="highlight json"><code>{
+   <span class="hljs-attr">"response"</span>:[
+      [
+         <span class="hljs-string">"Ngoài"</span>,
+         <span class="hljs-string">"E"</span>
+      ],
+      [
+         <span class="hljs-string">"thương hiệu"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">","</span>,
+         <span class="hljs-string">"CH"</span>
+      ],
+      [
+         <span class="hljs-string">"giá cả"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">","</span>,
+         <span class="hljs-string">"CH"</span>
+      ],
+      [
+         <span class="hljs-string">"thời điểm"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">"mua hàng"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">"cũng"</span>,
+         <span class="hljs-string">"R"</span>
+      ],
+      [
+         <span class="hljs-string">"là"</span>,
+         <span class="hljs-string">"V"</span>
+      ],
+      [
+         <span class="hljs-string">"một"</span>,
+         <span class="hljs-string">"M"</span>
+      ],
+      [
+         <span class="hljs-string">"yếu tố"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">"để"</span>,
+         <span class="hljs-string">"E"</span>
+      ],
+      [
+         <span class="hljs-string">"có"</span>,
+         <span class="hljs-string">"V"</span>
+      ],
+      [
+         <span class="hljs-string">"được"</span>,
+         <span class="hljs-string">"R"</span>
+      ],
+      [
+         <span class="hljs-string">"sản phẩm"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">"tốt"</span>,
+         <span class="hljs-string">"A"</span>
+      ],
+      [
+         <span class="hljs-string">"với"</span>,
+         <span class="hljs-string">"E"</span>
+      ],
+      [
+         <span class="hljs-string">"giá"</span>,
+         <span class="hljs-string">"N"</span>
+      ],
+      [
+         <span class="hljs-string">"rẻ"</span>,
+         <span class="hljs-string">"A"</span>
+      ],
+      [
+         <span class="hljs-string">"."</span>,
+         <span class="hljs-string">"CH"</span>
+      ]
+   ]
+}</code></pre>
+            <p>Api này sẽ nhận input là câu hoặc đoạn văn cần gán nhãn.</p>
+            <h3 id="http-request">HTTP Request</h3>
+            <p><code>GET https://nlp.yeu.ai/api/v1/tag?text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.</code></p>
+            <h3 id="query-parameters">Query Parameters</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Default</th>
+                  <th>Mandatory</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>text</td>
+                  <td>false</td>
+                  <td>yes</td>
+                  <td>Đoạn văn bản cần gán nhãn</td>
+                </tr>
+              </tbody>
+            </table>
+            <aside class="success"> Tham khảo bảng nhãn dán từ loại
+              <a href="#pos_tags">tại đây</a>
+            </aside>
+            <h2 id="chunking">Chunking</h2> <pre class="highlight bash"><code>curl -G <span class="hljs-string">"https://nlp.yeu.ai/api/v1/chunk"</span> --data-urlencode <span class="hljs-string">"text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ."</span></code></pre>
+            <pre
+              class="highlight javascript"><code><span class="hljs-keyword">const</span> yeuai = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yeuai'</span>)
+
+<span class="hljs-comment">// ES6</span>
+yeuai.chunk(<span class="hljs-string">'Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.'</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">tokens</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)
+  })
+
+<span class="hljs-comment">// ES7</span>
+<span class="hljs-keyword">await</span> tokens = yeuai.chunk(<span class="hljs-string">'Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.'</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)</code></pre>
+              <blockquote>
+                <p>Lệnh trên trả về cấu trúc JSON như thế này:</p>
+              </blockquote> <pre class="highlight json"><code>{
+   <span class="hljs-attr">"response"</span>:[
+      [
+         <span class="hljs-string">"Ngoài"</span>,
+         <span class="hljs-string">"E"</span>,
+         <span class="hljs-string">"B-PP"</span>
+      ],
+      [
+         <span class="hljs-string">"thương hiệu"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"B-NP"</span>
+      ],
+      [
+         <span class="hljs-string">","</span>,
+         <span class="hljs-string">"CH"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"giá cả"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">","</span>,
+         <span class="hljs-string">"CH"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"thời điểm"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"mua hàng"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"cũng"</span>,
+         <span class="hljs-string">"R"</span>,
+         <span class="hljs-string">"B-VP"</span>
+      ],
+      [
+         <span class="hljs-string">"là"</span>,
+         <span class="hljs-string">"V"</span>,
+         <span class="hljs-string">"I-VP"</span>
+      ],
+      [
+         <span class="hljs-string">"một"</span>,
+         <span class="hljs-string">"M"</span>,
+         <span class="hljs-string">"B-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"yếu tố"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"để"</span>,
+         <span class="hljs-string">"E"</span>,
+         <span class="hljs-string">"B-PP"</span>
+      ],
+      [
+         <span class="hljs-string">"có"</span>,
+         <span class="hljs-string">"V"</span>,
+         <span class="hljs-string">"B-VP"</span>
+      ],
+      [
+         <span class="hljs-string">"được"</span>,
+         <span class="hljs-string">"R"</span>,
+         <span class="hljs-string">"I-VP"</span>
+      ],
+      [
+         <span class="hljs-string">"sản phẩm"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"B-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"tốt"</span>,
+         <span class="hljs-string">"A"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"với"</span>,
+         <span class="hljs-string">"E"</span>,
+         <span class="hljs-string">"B-PP"</span>
+      ],
+      [
+         <span class="hljs-string">"giá"</span>,
+         <span class="hljs-string">"N"</span>,
+         <span class="hljs-string">"B-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"rẻ"</span>,
+         <span class="hljs-string">"A"</span>,
+         <span class="hljs-string">"I-NP"</span>
+      ],
+      [
+         <span class="hljs-string">"."</span>,
+         <span class="hljs-string">"CH"</span>,
+         <span class="hljs-string">"O"</span>
+      ]
+   ]
+}</code></pre>
+              <p>Api này sẽ nhận input là câu hoặc đoạn văn cần phân tích.</p>
+              <h3 id="http-request">HTTP Request</h3>
+              <p><code>GET https://nlp.yeu.ai/api/v1/chunk?text=Ngoài thương hiệu, giá cả, thời điểm mua hàng cũng là một yếu tố để có được sản phẩm tốt với giá rẻ.</code></p>
+              <h3 id="query-parameters">Query Parameters</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Default</th>
+                    <th>Mandatory</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>text</td>
+                    <td>false</td>
+                    <td>yes</td>
+                    <td>Đoạn văn bản cần phân tích</td>
+                  </tr>
+                </tbody>
+              </table>
+              <aside class="success"> Tham khảo bảng nhãn dán từ loại
+                <a href="#pos_tags">tại đây</a>
+              </aside>
+              <h1 id="nlu-api">NLU API</h1>
+              <h2 id="ph-n-t-ch-c-u-h-i">Phân tích câu hỏi</h2> <pre class="highlight bash"><code>curl -G <span class="hljs-string">"https://nlp.yeu.ai/api/v1/qtype"</span> --data-urlencode <span class="hljs-string">"text=khi nào chương trình diễn ra?"</span></code></pre><pre class="highlight javascript"><code><span class="hljs-keyword">const</span> yeuai = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yeuai'</span>)
+
+<span class="hljs-comment">// ES6</span>
+yeuai.classify_qtype(<span class="hljs-string">'khi nào chương trình diễn ra?'</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">tokens</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)
+  })
+
+<span class="hljs-comment">// ES7</span>
+<span class="hljs-keyword">await</span> tokens = yeuai.classify_qtype(<span class="hljs-string">'khi nào chương trình diễn ra?'</span>)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Result:'</span>, tokens)</code></pre>
+              <blockquote>
+                <p>Lệnh trên trả về cấu trúc JSON như thế này:</p>
+              </blockquote> <pre class="highlight json"><code>{
+   <span class="hljs-attr">"success"</span>:<span class="hljs-literal">true</span>,
+   <span class="hljs-attr">"response"</span>:{
+      <span class="hljs-attr">"classes"</span>:[
+         {
+            <span class="hljs-attr">"confidence"</span>:<span class="hljs-string">"0.948622"</span>,
+            <span class="hljs-attr">"label"</span>:<span class="hljs-string">"WHEN"</span>
+         }
+      ],
+      <span class="hljs-attr">"text"</span>:<span class="hljs-string">"khi nào chương trình diễn ra?"</span>
+   }
+}</code></pre>
+              <p>Api này sẽ nhận input là câu hỏi cần phân tích.</p>
+              <h3 id="http-request">HTTP Request</h3>
+              <p><code>GET https://nlp.yeu.ai/api/v1/qtype?text=khi nào chương trình diễn ra?</code></p>
+              <h3 id="query-parameters">Query Parameters</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Default</th>
+                    <th>Mandatory</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>text</td>
+                    <td>false</td>
+                    <td>yes</td>
+                    <td>Câu hỏi cần phân tích</td>
+                  </tr>
+                </tbody>
+              </table>
+              <aside class="warning"> Phiên bản tiếp theo sẽ phân tích câu hỏi với nhiều thông tin hơn và cấu trúc có thể sẽ thay đổi (gợi ý) như này: <code>json
+{
+   &quot;success&quot;:true,
+   &quot;response&quot;:{
+      &quot;qSubtype&quot;:[
+         {
+            &quot;confidence&quot;:&quot;0.948622&quot;,
+            &quot;label&quot;:&quot;WHEN&quot;
+         }
+      ],
+      &quot;qType&quot;:[
+         {
+            &quot;confidence&quot;:&quot;0.971889&quot;,
+            &quot;label&quot;:&quot;NUM:date&quot;
+         }
+      ],
+      &quot;text&quot;:&quot;khi nào chương trình diễn ra?&quot;
+   }
+}</code> </aside>
+              <h1 id="b-ng-m-l-i">Bảng mã lỗi</h1>
+              <aside class="notice">Phần này sẽ mô tả các mã lỗi trả về khi gọi api không đúng cách hoặc truyền sai các giá trị tham số.</aside>
+              <p>
+                <strong>Yeu.AI API</strong> sử dụng bảng mã lỗi sau đây:</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Error Code</th>
+                    <th>Meaning</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>400</td>
+                    <td>Bad Request -- Truyền thiếu tham số hoặc sai kiểu dữ liệu</td>
+                  </tr>
+                  <tr>
+                    <td>401</td>
+                    <td>Unauthorized -- API accessToken của bạn sai hoặc hết hạn sử dụng</td>
+                  </tr>
+                  <tr>
+                    <td>403</td>
+                    <td>Forbidden -- Truy nhập vào api, tài nguyên không được phép</td>
+                  </tr>
+                  <tr>
+                    <td>404</td>
+                    <td>Not Found -- Không tìm thấy tài nguyên yêu cầu</td>
+                  </tr>
+                  <tr>
+                    <td>405</td>
+                    <td>Method Not Allowed -- Không hỗ trợ phương thức yêu cầu</td>
+                  </tr>
+                  <tr>
+                    <td>406</td>
+                    <td>Not Acceptable -- Yêu cầu không được chấp nhận</td>
+                  </tr>
+                  <tr>
+                    <td>410</td>
+                    <td>Gone -- Tài nguyên truy vấn không còn tồn tại</td>
+                  </tr>
+                  <tr>
+                    <td>429</td>
+                    <td>Too Many Requests -- Bạn gửi quá nhiều truy vấn vượt quá giới hạn cho phép</td>
+                  </tr>
+                  <tr>
+                    <td>500</td>
+                    <td>Internal Server Error -- Máy chủ có lỗi, hãy thử lại sau 1 khoảng thời gian</td>
+                  </tr>
+                  <tr>
+                    <td>503</td>
+                    <td>Service Unavailable -- Dịch vụ bạn đang truy cập không có hoặc đang được nâng cấp</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h1 id="ph-l-c">Phụ lục</h1>
+              <h2 id="-a-name-pos_tags-a-b-ng-nh-n-d-n-t-lo-i">
+                <a name="pos_tags"></a>Bảng nhãn dán từ loại</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Nhãn</th>
+                    <th>Loại</th>
+                    <th>Viết tắt của</th>
+                    <th>Tên</th>
+                    <th>Nhãn Universal Dependency</th>
+                    <th>Ví dụ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>N</td>
+                    <td>1</td>
+                    <td>Noun</td>
+                    <td>Danh từ</td>
+                    <td>NOUN</td>
+                    <td>tiếng, nước, thủ đô, nhân dân, đồ đạc, cây cối, chim muông</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Nc</td>
+                    <td>1</td>
+                    <td>Noun Category</td>
+                    <td>Danh từ chỉ loại</td>
+                    <td>NOUN</td>
+                    <td>con, cái, đứa, bức, chiếc</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Ni</td>
+                    <td>1</td>
+                    <td></td>
+                    <td>Danh từ ký hiệu</td>
+                    <td>NOUN</td>
+                    <td>A1, A4, 60A, 60B, 20a, 20b, ABC, ABCD</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Np</td>
+                    <td>1</td>
+                    <td>Proper Noun</td>
+                    <td>Danh từ riêng</td>
+                    <td>NOUN</td>
+                    <td>Nguyễn Du, Việt Nam, Hải Phòng, Trường Đại học Bách khoa Hà Nội, Mộc tinh, Hoả tinh, Phật, Đạo Phật</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Nu</td>
+                    <td>1</td>
+                    <td>Noun Unit</td>
+                    <td>Danh từ đơn vị</td>
+                    <td>NOUN</td>
+                    <td>mét, cân, giờ, nắm, nhúm, hào, xu, đồng</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>A</td>
+                    <td>2</td>
+                    <td>Adjective</td>
+                    <td>Tính từ</td>
+                    <td>ADJ</td>
+                    <td>tốt, xấu, đẹp; cao, thấp, rộng</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>V</td>
+                    <td>3</td>
+                    <td>Verb</td>
+                    <td>Động từ</td>
+                    <td>VERB</td>
+                    <td>ngủ, ngồi, cười; đọc, viết, đá, đặt; thích, yêu, ghét, giống, muốn</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>P</td>
+                    <td>4</td>
+                    <td>Proper</td>
+                    <td>Đại từ</td>
+                    <td>PROPN</td>
+                    <td>tôi, chúng tôi, hắn, nó, y, đại nhân, đại ca, huynh, đệ</td>
+                  </tr>
+                  <tr>
+                    <td>12</td>
+                    <td>E</td>
+                    <td>5</td>
+                    <td>Adposition (bao gồm prepositions và postpositions)</td>
+                    <td>Giới từ</td>
+                    <td>ADP</td>
+                    <td>trên, dưới, trong, ngoài; của, trừ, ngoài, khỏi, ở</td>
+                  </tr>
+                  <tr>
+                    <td>15</td>
+                    <td>I</td>
+                    <td>5</td>
+                    <td>Interjection</td>
+                    <td>Thán từ</td>
+                    <td>INTJ</td>
+                    <td>ôi, chao, a ha</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>L</td>
+                    <td>5</td>
+                    <td>Determiner</td>
+                    <td>Định từ</td>
+                    <td>DET</td>
+                    <td>mỗi, từng, mọi, cái; các, những, mấy</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>M</td>
+                    <td>5</td>
+                    <td>Numeral</td>
+                    <td>Số từ</td>
+                    <td>NUM</td>
+                    <td>một, mười, mười ba; dăm, vài, mươi; nửa, rưỡi</td>
+                  </tr>
+                  <tr>
+                    <td>16</td>
+                    <td>T</td>
+                    <td>7</td>
+                    <td>particle</td>
+                    <td>Trợ từ, tình thái từ (tiểu từ)</td>
+                    <td>PART</td>
+                    <td>à, a, á, ạ, ấy, chắc, chăng, cho, chứ</td>
+                  </tr>
+                  <tr>
+                    <td>20</td>
+                    <td>Z</td>
+                    <td>8</td>
+                    <td>other</td>
+                    <td>Yếu tố cấu tạo từ</td>
+                    <td>X</td>
+                    <td>bất, vô, phi</td>
+                  </tr>
+                  <tr>
+                    <td>11</td>
+                    <td>R</td>
+                    <td>8</td>
+                    <td></td>
+                    <td>Phó từ (Trạng từ)</td>
+                    <td>X</td>
+                    <td>đã, sẽ, đang, vừa, mới, từng, xong, rồi; rất, hơi, khí, quá</td>
+                  </tr>
+                  <tr>
+                    <td>19</td>
+                    <td>X</td>
+                    <td>8</td>
+                    <td>other</td>
+                    <td>Các từ không phân loại được</td>
+                    <td>X</td>
+                    <td>ra sao, chừng như, thì ra</td>
+                  </tr>
+                  <tr>
+                    <td>13</td>
+                    <td>C</td>
+                    <td>9</td>
+                    <td>coordinating conjunction</td>
+                    <td>Liên từ (thường là chính phụ)</td>
+                    <td>CCONJ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>14</td>
+                    <td>Cc</td>
+                    <td>9</td>
+                    <td>subordinating conjunction</td>
+                    <td>Liên từ đẳng lập</td>
+                    <td>SCONJ</td>
+                    <td>và, hoặc, với, cùng</td>
+                  </tr>
+                  <tr>
+                    <td>21</td>
+                    <td>CH</td>
+                    <td>10</td>
+                    <td></td>
+                    <td>Nhãn dành cho các loại dấu (nhiều nhất là dấu câu) và một số ký hiệu khác</td>
+                    <td>PUNCT</td>
+                    <td>. ! ? , ; :</td>
+                  </tr>
+                  <tr>
+                    <td>17</td>
+                    <td>b</td>
+                    <td>100</td>
+                    <td>borrow</td>
+                    <td>Từ tiếng nước ngoài (hay từ vay mượn). Khi gán nhãn ngữ liệu, nhãn từ tiếng nước ngoài thường là nhãn kép. Chẳng hạn nếu từ là chat thì nhãn của nó là Vb, video thì nhãn là Nb. Qua thống kê trong kho ngữ liệu thấy có: Ab Cb Eb Mb Nb
+                      Pb Vb.</td>
+                    <td>_</td>
+                    <td>Internet, email, video, chat</td>
+                  </tr>
+                  <tr>
+                    <td>18</td>
+                    <td>y</td>
+                    <td>100</td>
+                    <td></td>
+                    <td>Từ viết tắt. Khi gán nhãn ngữ liệu, nhãn từ viết tắt thường là nhãn kép. Chẳng hạn nếu từ viết tắt là HIV thì nhãn của nó là Ny vì HIV viết đầy đủ thì là cụm danh từ. Qua thống kê trong kho ngữ liệu thấy có: Ny, Vy, Xy.</td>
+                    <td>_</td>
+                    <td>OPEC, WTO, HIV, SN</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>Tham khảo:</p>
+              <ul>
+                <li>
+                  <a href="http://universaldependencies.org/u/pos/">Universal POS tags, universaldependencies.org</a>
+                </li>
+                <li>
+                  <a href="http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn English Treebank POS tags</a>
+                </li>
+                <li>
+                  <a href="https://docs.google.com/spreadsheets/d/12bqhU5NS9rxM9kY2pBjRSB6Av_XsoOonHEqiv-lDKZw/edit#gid=458521935">Bảng tổng hợp nhãn dán và thử nghiệm</a>
+                </li>
+              </ul>
+              <h2 id="b-ng-ph-n-lo-i-c-u-h-i">Bảng phân loại câu hỏi</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Class</th>
+                    <th>Definition</th>
+                    <th>Diễn tả</th>
+                    <th>Ví dụ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>ABBREVIATION</td>
+                    <td>abbreviation</td>
+                    <td>viết tắt</td>
+                    <td>ABBR</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>abb</td>
+                    <td>abbreviation</td>
+                    <td>viết tắt</td>
+                    <td>Hà Nội viết tắt là gì</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>exp</td>
+                    <td>expression abbreviated</td>
+                    <td>diễn tả về cách viết tắt</td>
+                    <td>NLP viết tắt của từ gì ? SOA là gì?</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>ENTITY</td>
+                    <td>entities</td>
+                    <td>các thực thể</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>animal</td>
+                    <td>animals</td>
+                    <td>động vật</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>body</td>
+                    <td>organs of body</td>
+                    <td>các cơ quan của cơ thể</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>color</td>
+                    <td>colors</td>
+                    <td>màu sắc</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>creative</td>
+                    <td>inventions, books and other creative pieces</td>
+                    <td>sáng chế, sách và các tác phẩm sáng tạo khác</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>currency</td>
+                    <td>currency names</td>
+                    <td>tên tiền tệ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>dis.med.</td>
+                    <td>diseases and medicine</td>
+                    <td>bệnh tật và thuốc men</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>11</td>
+                    <td>event</td>
+                    <td>events</td>
+                    <td>sự kiện</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>12</td>
+                    <td>food</td>
+                    <td>food</td>
+                    <td>món ăn</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>13</td>
+                    <td>instrument</td>
+                    <td>musical instrument</td>
+                    <td>nhạc cụ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>14</td>
+                    <td>lang</td>
+                    <td>languages</td>
+                    <td>ngôn ngữ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>15</td>
+                    <td>letter</td>
+                    <td>letters like a-z</td>
+                    <td>chữ cái như a-z</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>16</td>
+                    <td>other</td>
+                    <td>other entities</td>
+                    <td>các thực thể khác</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>17</td>
+                    <td>plant</td>
+                    <td>plants</td>
+                    <td>cây cối</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>18</td>
+                    <td>product</td>
+                    <td>products</td>
+                    <td>các sản phẩm</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>19</td>
+                    <td>religion</td>
+                    <td>religions</td>
+                    <td>tôn giáo</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>20</td>
+                    <td>sport</td>
+                    <td>sports</td>
+                    <td>các môn thể thao</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>21</td>
+                    <td>substance</td>
+                    <td>elements and substances</td>
+                    <td>yếu tố và vật chất</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>22</td>
+                    <td>symbol</td>
+                    <td>symbols and signs</td>
+                    <td>biểu tượng và dấu hiệu</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>23</td>
+                    <td>technique</td>
+                    <td>techniques and methods</td>
+                    <td>kỹ thuật và phương pháp</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>24</td>
+                    <td>term</td>
+                    <td>equivalent terms</td>
+                    <td>các điều khoản tương đương</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>25</td>
+                    <td>vehicle</td>
+                    <td>vehicles</td>
+                    <td>xe cộ, phương tiện đi lại</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>26</td>
+                    <td>word</td>
+                    <td>words with a special property</td>
+                    <td>những từ với một tài sản đặc biệt</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>27</td>
+                    <td>DESCRIPTION</td>
+                    <td>description and abstract concepts</td>
+                    <td>mô tả và các khái niệm trừu tượng</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>28</td>
+                    <td>definition</td>
+                    <td>definition of sth.</td>
+                    <td>định nghĩa của một thứ gì đó (sth.)</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>29</td>
+                    <td>description</td>
+                    <td>description of sth.</td>
+                    <td>mô tả về thứ gì đó (sth.)</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>30</td>
+                    <td>manner</td>
+                    <td>manner of an action</td>
+                    <td>cách hành động, cư xử</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>31</td>
+                    <td>reason</td>
+                    <td>reasons</td>
+                    <td>lý do</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>32</td>
+                    <td>HUMAN</td>
+                    <td>human beings</td>
+                    <td>con người</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>33</td>
+                    <td>group</td>
+                    <td>a group or organization of persons</td>
+                    <td>nhóm hoặc tổ chức người</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>34</td>
+                    <td>ind</td>
+                    <td>an individual</td>
+                    <td>một cá nhân</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>35</td>
+                    <td>title</td>
+                    <td>title of a person</td>
+                    <td>chức danh của một người</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>36</td>
+                    <td>description</td>
+                    <td>description of a person</td>
+                    <td>mô tả về một người</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>37</td>
+                    <td>LOCATION</td>
+                    <td>locations</td>
+                    <td>vị trí</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>38</td>
+                    <td>city</td>
+                    <td>cities</td>
+                    <td>các thành phố</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>39</td>
+                    <td>country</td>
+                    <td>countries</td>
+                    <td>quốc gia</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>40</td>
+                    <td>mountain</td>
+                    <td>mountains</td>
+                    <td>các ngọn núi, đồi</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>41</td>
+                    <td>other</td>
+                    <td>other locations</td>
+                    <td>các địa điểm khác</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>42</td>
+                    <td>state</td>
+                    <td>states</td>
+                    <td>tiểu bang</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>43</td>
+                    <td>NUMERIC</td>
+                    <td>numeric values</td>
+                    <td>giá trị số</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>44</td>
+                    <td>code</td>
+                    <td>postcodes or other codes</td>
+                    <td>mã bưu điện hoặc các mã khác</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>45</td>
+                    <td>count</td>
+                    <td>number of sth.</td>
+                    <td>số lượng sth.</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>46</td>
+                    <td>date</td>
+                    <td>dates</td>
+                    <td>ngày tháng</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>47</td>
+                    <td>distance</td>
+                    <td>linear measures</td>
+                    <td>khoảng cách, các phép đo tuyến tính</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>48</td>
+                    <td>money</td>
+                    <td>prices</td>
+                    <td>giá cả</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>49</td>
+                    <td>order</td>
+                    <td>ranks</td>
+                    <td>xếp hạng</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>50</td>
+                    <td>other</td>
+                    <td>other numbers</td>
+                    <td>số khác</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>51</td>
+                    <td>period</td>
+                    <td>the lasting time of sth.</td>
+                    <td>chu kỳ, thời gian sống của một vật</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>52</td>
+                    <td>percent</td>
+                    <td>fractions</td>
+                    <td>phân số</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>53</td>
+                    <td>speed</td>
+                    <td>speed</td>
+                    <td>tốc độ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>54</td>
+                    <td>temp</td>
+                    <td>temperature</td>
+                    <td>nhiệt độ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>55</td>
+                    <td>size</td>
+                    <td>size, area and volume</td>
+                    <td>kích thước, diện tích và khối lượng</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>56</td>
+                    <td>weight</td>
+                    <td>weight</td>
+                    <td>cân nặng</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>Tham khảo:</p>
+              <ul>
+                <li>
+                  <a href="http://cogcomp.org/Data/QA/QC/definition.html">Definition of Question Classes, by Xin Li and Dan Roth</a>
+                </li>
+                <li>
+                  <a href="https://docs.google.com/spreadsheets/d/12bqhU5NS9rxM9kY2pBjRSB6Av_XsoOonHEqiv-lDKZw/edit#gid=458521935">Bảng tổng hợp nhãn dán và thử nghiệm</a>
+                </li>
+              </ul>
+              <!-- References -->
       </div>
       <div class="dark-box">
         <div class="lang-selector">
           <a href="#" data-language-name="bash">bash</a>
-          <a href="#" data-language-name="ruby">ruby</a>
-          <a href="#" data-language-name="python">python</a>
           <a href="#" data-language-name="javascript">javascript</a>
         </div>
       </div>
